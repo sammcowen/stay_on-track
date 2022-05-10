@@ -29,9 +29,50 @@ request.onerror = function(event) {
 };
 
 function saveTrans(trans) {
-    const record = db.record(['new_trans'],'readwrite');
+    const transaction = db.transaction(['new_transaction'],'readwrite');
 
-    const budgetObjectStore = record.objectStore('new_trans');
+    const budgetObjectStore = transaction.objectStore('new_transaction');
 
     budgetObjectStore.add(trans);
 }
+function uploadTrans() {
+    // open a transaction on the db 
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
+
+    const budgetObjectStore = transaction.objectStore('new_transaction');
+
+    const getAll = budgetObjectStore.getAll();
+
+    getAll.onsuccess = function() {
+        if(getAll.result.length > 0) {
+            fetch('api/transaction', {
+                method:'POST',
+                body:JSON.stringify(getAll.result),
+                headers:{
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            /then(serverResponse => {
+                if(serverResponse.message) {
+                    throw new Error(serverResponse);
+                }
+                const transaction = db.transaction(['new_transaction'], 'readwrite');
+
+                const budgetObjectStore = transaction.objectStore('new_transaction');
+
+                budgetObjectStore.clear();
+
+                alert('All saved transactions have been submitted!');
+
+            })
+            .catch(err=> {
+                console.log(err);
+            });
+        }
+    }
+}
+
+// listen for application coming back online
+window.addEventListener('online', uploadTrans);
