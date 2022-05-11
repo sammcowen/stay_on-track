@@ -9,6 +9,8 @@
 
 -[Description](#description)
 
+-[Demo](#Demo)
+
 -[Installation](#Installation)
 
 -[Usage](#Usage)
@@ -28,6 +30,13 @@
   ## Description 📜
 
   This application gives users an easy way to keep track of their spending habits. This application allows them access to this with offline functionality which is paramount to the success of users being able to use this at all times on the go , every single day , easily!
+  
+  ## Demo 📽️
+  
+  Below is a demo of the application being used . 
+  ![Budget Tracker](https://user-images.githubusercontent.com/92121595/167765411-bcd706db-d06d-42e7-b5ea-b880007734c9.gif)
+  
+  [This is the live link to the deployed app to be used!](https://warm-taiga-78322.herokuapp.com/)
 
   ## Installation 💾
   Follow these steps to properly install this application:
